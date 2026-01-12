@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Десятиборье Счастья | Инженерный подход к счастью</title>
+    <meta name="description" content="60 часов разговоров, 1000 экспериментов над собой, и честный разговор о том, как работает счастье.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --foundation: #3b82f6;
+            --heart: #ec4899;
+            --mind: #8b5cf6;
+            --purpose: #f59e0b;
+            --dark-bg: #1a1a2e;
+            --light-bg: #f5f5f7;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+        
+        .hero .cta-button {
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+        
+        .hero .small-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Section */
+        section {
+            padding: 80px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        /* About Section */
+        .about {
+            background: var(--light-bg);
+        }
+        
+        .about .section-title {
+            margin-bottom: 1rem;
+        }
+        
+        .about .subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .card ul {
+            list-style: none;
+            color: var(--text-light);
+        }
+        
+        .card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .card ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Wheel Section */
+        .wheel-section {
+            background: white;
+            text-align: center;
+        }
+        
+        .wheel-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 0 auto;
+            max-width: 90vw;
+            max-height: 90vw;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .wheel-center h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .wheel-center .progress {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .wheel-segments {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .segment {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .segment:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .segment.foundation { border-left: 4px solid var(--foundation); }
+        .segment.heart { border-left: 4px solid var(--heart); }
+        .segment.mind { border-left: 4px solid var(--mind); }
+        .segment.purpose { border-left: 4px solid var(--purpose); }
+        
+        .segment h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .segment p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* Principles Section */
+        .principles {
+            background: var(--light-bg);
+        }
+        
+        .principle-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .principle-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .principle-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+        
+        .principle-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .principle-card .tagline {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .principle-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .learn-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+        
+        .learn-more:hover {
+            gap: 1rem;
+        }
+        
+        /* Roadmap Section */
+        .roadmap {
+            background: white;
+        }
+        
+        .roadmap-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .step {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 2rem;
+        }
+        
+        .final-cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .final-cta p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .final-cta .cta-button {
+            background: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1.2rem 3rem;
+        }
+        
+        .final-cta .cta-button:hover {
+            background: var(--light-bg);
+            transform: scale(1.05);
+        }
+        
+        .final-cta .small-text {
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .wheel-segments {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Десятиборье Счастья</a>
+            <ul class="nav-links">
+                <li><a href="#about">О проекте</a></li>
+                <li><a href="#wheel">Десятиборье</a></li>
+                <li><a href="#principles">Принципы</a></li>
+                <li><a href="#roadmap">Дорожная карта</a></li>
+            </ul>
+            <a href="#start" class="cta-button">Начать →</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>СЧАСТЬЕ — ЭТО НЕ УДАЧА.<br>ЭТО ИНЖЕНЕРНАЯ ЗАДАЧА.</h1>
+        <p class="subtitle">60 часов разговоров, 1000 экспериментов над собой,<br>и честный разговор о том, как работает счастье.</p>
+        <a href="#start" class="cta-button">→ Начать своё Десятиборье</a>
+        <p class="small-text">Без эзотерики. Без волшебных таблеток. Только системный подход.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">ЭТО НЕ МОТИВАЦИОННЫЙ ПОРТАЛ.</h2>
+        <p class="subtitle">ЭТО ИНЖЕНЕРНЫЙ СПРАВОЧНИК ПО ЖИЗНИ.</p>
+        
+        <div class="cards">
+            <div class="card">
+                <h3>ЧТО ЭТО?</h3>
+                <ul>
+                    <li>60 часов подкастов и разговоров</li>
+                    <li>Системный подход к счастью</li>
+                    <li>Философия "Десятиборья"</li>
+                    <li>Практические инструменты</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>ДЛЯ КОГО?</h3>
+                <ul>
+                    <li>Для тех, кто устал от "волшебных таблеток"</li>
+                    <li>Для предпринимателей и профессионалов</li>
+                    <li>Для тех, кто готов к честному разговору</li>
+                    <li>Для системных мыслителей</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>ЧТО ВНУТРИ?</h3>
+                <ul>
+                    <li>4 модуля глубокого обучения</li>
+                    <li>Чек-листы и практики</li>
+                    <li>Интерактивные инструменты</li>
+                    <li>Сообщество единомышленников</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wheel Section -->
+    <section id="wheel" class="wheel-section">
+        <h2 class="section-title">КОЛЕСО ДЕСЯТИБОРЬЯ</h2>
+        <p class="subtitle">10 элементов системного счастья</p>
+        
+        <div class="wheel-container">
+            <svg class="wheel" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#e5e7eb" stroke-width="20"/>
+                <circle cx="100" cy="100" r="90" fill="none" stroke="#6366f1" stroke-width="20" 
+                        stroke-dasharray="565" stroke-dashoffset="200" opacity="0.3"/>
+            </svg>
+            <div class="wheel-center">
+                <h3>СЧАСТЬЕ</h3>
+                <div class="progress">65%</div>
+            </div>
+        </div>
+        
+        <div class="wheel-segments">
+            <div class="segment foundation">
+                <h4>🛌 Сон</h4>
+                <p>7-9 часов качественного отдыха</p>
+            </div>
+            <div class="segment foundation">
+                <h4>🍎 Питание</h4>
+                <p>Еда как топливо</p>
+            </div>
+            <div class="segment foundation">
+                <h4>🏃 Движение</h4>
+                <p>Ежедневная активность</p>
+            </div>
+            <div class="segment heart">
+                <h4>💑 Партнёр</h4>
+                <p>Главная связь</p>
+            </div>
+            <div class="segment heart">
+                <h4>👨‍👩‍👧‍👦 Род</h4>
+                <p>Семья и корни</p>
+            </div>
+            <div class="segment heart">
+                <h4>👥 Стая</h4>
+                <p>Близкие друзья</p>
+            </div>
+            <div class="segment purpose">
+                <h4>🎯 Смыслы</h4>
+                <p>Твоё "почему"</p>
+            </div>
+            <div class="segment purpose">
+                <h4>🎨 Творчество</h4>
+                <p>Создавай</p>
+            </div>
+            <div class="segment purpose">
+                <h4>💰 Деньги</h4>
+                <p>Инструмент</p>
+            </div>
+            <div class="segment mind">
+                <h4>🌱 Наследие</h4>
+                <p>Что останется</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principles Section -->
+    <section id="principles" class="principles">
+        <h2 class="section-title">ШЕСТЬ ФУНДАМЕНТАЛЬНЫХ ПРИНЦИПОВ</h2>
+        
+        <div class="principle-card">
+            <div class="principle-number">01</div>
+            <h3>ПРИНЦИП ВОЛНЫ</h3>
+            <p class="tagline">Жизнь — это синусоида. Проживай низы качественно.</p>
+            <p>Взлёты и падения естественны. Не борись с ними. Используй низкие фазы для рефлексии и подготовки к следующему подъёму. Серфер не борется с волной — он использует её энергию.</p>
+            <a href="#" class="learn-more">→ Узнать больше о Принципе Волны</a>
+        </div>
+        
+        <div class="principle-card">
+            <div class="principle-number">02</div>
+            <h3>БИОХИМИЯ ОПРЕДЕЛЯЕТ СОЗНАНИЕ</h3>
+            <p class="tagline">Твой мозг — это химическая лаборатория.</p>
+            <p>Сон. Еда. Движение. Три столпа, без которых невозможно построить ничего выше. Не можешь быть счастливым, если твоё тело в разрухе.</p>
+            <a href="#" class="learn-more">→ Узнать больше о Биохимии</a>
+        </div>
+        
+        <div class="principle-card">
+            <div class="principle-number">03</div>
+            <h3>ОТНОШЕНИЯ — ГЛАВНЫЙ АКТИВ</h3>
+            <p class="tagline">Любовь — это глагол, а не существительное.</p>
+            <p>Человек — социальное животное. Качество твоих отношений определяет качество твоей жизни. Инвестируй в людей, которые дают тебе энергию.</p>
+            <a href="#" class="learn-more">→ Узнать больше об Отношениях</a>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <h2 class="section-title">ДОРОЖНАЯ КАРТА К СЧАСТЬЮ</h2>
+        <p class="subtitle">Твой путь от хаоса к системе</p>
+        
+        <div class="roadmap-steps">
+            <div class="step">
+                <div class="step-number">ШАГ 1</div>
+                <h3>ЧЕСТНЫЙ АУДИТ</h3>
+                <p>Посмотри правде в глаза. Где ты сейчас? Что работает? Что не работает?</p>
+                <a href="#" class="learn-more">→ Пройти аудит</a>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">ШАГ 2</div>
+                <h3>ЗАЧИСТКА</h3>
+                <p>Удали токсичное из своей жизни. Цифровой детокс. Инвентаризация отношений.</p>
+                <a href="#" class="learn-more">→ План зачистки</a>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">ШАГ 3</div>
+                <h3>ВНЕДРЕНИЕ БАЗЫ</h3>
+                <p>Построй фундамент: сон, еда, движение. 30-дневные челленджи.</p>
+                <a href="#" class="learn-more">→ Мои первые привычки</a>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">ШАГ 4</div>
+                <h3>ПОИСК СТАИ</h3>
+                <p>Найди своих людей. Сообщество единомышленников.</p>
+                <a href="#" class="learn-more">→ Присоединиться</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="start" class="final-cta">
+        <h2>СЧАСТЬЕ НЕ СЛУЧАЕТСЯ САМО.</h2>
+        <p>ЕГО НУЖНО ПОСТРОИТЬ.</p>
+        <p style="font-size: 1.2rem; margin-top: 1rem;">Начни своё Десятиборье.</p>
+        <a href="#" class="cta-button">→ Пройти честный аудит</a>
+        <p class="small-text">Это бесплатно. Займёт 5 минут.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Десятиборье Счастья</h4>
+                <p>Инженерный подход к счастью от Mykyta Duliesov</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="#about">О проекте</a></li>
+                    <li><a href="#wheel">Десятиборье</a></li>
+                    <li><a href="#principles">Принципы</a></li>
+                    <li><a href="#roadmap">Дорожная карта</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Ресурсы</h4>
+                <ul>
+                    <li><a href="#">Библиотека</a></li>
+                    <li><a href="#">Инструменты</a></li>
+                    <li><a href="#">Сообщество</a></li>
+                    <li><a href="#">Блог</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2026 Десятиборье Счастья. Все права защищены.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.padding = '0.75rem 2rem';
+                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '1rem 2rem';
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Segment hover effect
+        document.querySelectorAll('.segment').forEach(segment => {
+            segment.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            segment.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
